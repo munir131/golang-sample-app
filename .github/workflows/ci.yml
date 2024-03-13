@@ -31,7 +31,7 @@ jobs:
     - name: Initialize Pipeline
       uses: mshick/add-pr-comment@v2.8.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_REPO_TOKEN }}
       with:
         message: "@${{ github.actor }} GitHub Actions has started building this code. Check status at 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'"
         message-id: ${{ github.run_id }}-${{ github.run_attempt }}
@@ -77,7 +77,7 @@ jobs:
     - name: Comment on PR
       uses: mshick/add-pr-comment@v1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_REPO_TOKEN }}
       with:
         message: '@${{ github.actor }} Image is available for testing. `docker pull ${{ steps.generate_vars.outputs.image }}`'
         allow-repeats: false
@@ -86,7 +86,7 @@ jobs:
       if: failure()
       uses: mshick/add-pr-comment@v2.8.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_REPO_TOKEN }}
       with:
         message: '@${{ github.actor }} The pipeline failed! You better fix it before anyone else finds out! [Build](https://github.com/${{ github.repository }}/commit/${{ github.event.pull_request.head.sha }}/checks) has Failed!'
         allow-repeats: false
@@ -98,5 +98,5 @@ jobs:
     #     status: ${{ job.status }}
     #     fields: repo,author,action,eventName,ref,workflow
     #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_REPO_TOKEN }}
     #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
