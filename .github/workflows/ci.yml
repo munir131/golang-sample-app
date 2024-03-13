@@ -28,13 +28,13 @@ jobs:
         go mod download
         go build -v .
     
-    - name: Initialize Pipeline
-      uses: mshick/add-pr-comment@v2.8.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_REPO_TOKEN }}
-      with:
-        message: "@${{ github.actor }} GitHub Actions has started building this code. Check status at 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'"
-        message-id: ${{ github.run_id }}-${{ github.run_attempt }}
+    # - name: Initialize Pipeline
+    #   uses: mshick/add-pr-comment@v2.8.1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_REPO_TOKEN }}
+    #   with:
+    #     message: "@${{ github.actor }} GitHub Actions has started building this code. Check status at 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'"
+    #     message-id: ${{ github.run_id }}-${{ github.run_attempt }}
 
     - name: Generate Vars
       id: generate_vars
@@ -74,22 +74,22 @@ jobs:
         push: true
         tags: ${{ steps.generate_vars.outputs.image }}
 
-    - name: Comment on PR
-      uses: mshick/add-pr-comment@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_REPO_TOKEN }}
-      with:
-        message: '@${{ github.actor }} Image is available for testing. `docker pull ${{ steps.generate_vars.outputs.image }}`'
-        allow-repeats: false
+    # - name: Comment on PR
+    #   uses: mshick/add-pr-comment@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_REPO_TOKEN }}
+    #   with:
+    #     message: '@${{ github.actor }} Image is available for testing. `docker pull ${{ steps.generate_vars.outputs.image }}`'
+    #     allow-repeats: false
 
-    - name: Notify Failure
-      if: failure()
-      uses: mshick/add-pr-comment@v2.8.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_REPO_TOKEN }}
-      with:
-        message: '@${{ github.actor }} The pipeline failed! You better fix it before anyone else finds out! [Build](https://github.com/${{ github.repository }}/commit/${{ github.event.pull_request.head.sha }}/checks) has Failed!'
-        allow-repeats: false
+    # - name: Notify Failure
+    #   if: failure()
+    #   uses: mshick/add-pr-comment@v2.8.1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_REPO_TOKEN }}
+    #   with:
+    #     message: '@${{ github.actor }} The pipeline failed! You better fix it before anyone else finds out! [Build](https://github.com/${{ github.repository }}/commit/${{ github.event.pull_request.head.sha }}/checks) has Failed!'
+    #     allow-repeats: false
 
     # - name: Notify Slack
     #   uses: 8398a7/action-slack@v3
