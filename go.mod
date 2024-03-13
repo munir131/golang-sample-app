@@ -1,4 +1,4 @@
-module github.com/kahootali/golang-sample-app
+module github.com/munir131/golang-sample-app
 
 go 1.20
 
