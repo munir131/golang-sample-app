@@ -1,0 +1,6 @@
+# github.com/thedevsaddam/renderer v1.2.0
+## explicit
+github.com/thedevsaddam/renderer
+# gopkg.in/yaml.v2 v2.4.0
+## explicit; go 1.15
+gopkg.in/yaml.v2
