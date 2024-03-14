@@ -22,7 +22,10 @@ jobs:
 
     - name: Check out code into the Go module directory
       uses: actions/checkout@v4
-
+    
+    - name: "go test"
+      run: "go test ."
+    
     - name: Build Code
       run: |
         go mod download
